@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch System UUID</title>
+    <script>
+        async function fetchUUID() {
+            try {
+                const response = await fetch('http://localhost:3000/get-uuid');
+                const data = await response.json();
+                if (data.uuid) {
+                    document.getElementById('uuidDisplay').innerText = `System UUID: ${data.uuid}`;
+                } else {
+                    document.getElementById('uuidDisplay').innerText = 'Failed to fetch UUID.';
+                }
+            } catch (error) {
+                document.getElementById('uuidDisplay').innerText = 'Error: Unable to connect to server.';
+                console.error(error);
+            }
+        }
+    </script>
+
+  <script>
+
+
+    function handleClick() {
+        requestNotificationPermission();
+        fetchUUID();
+    }
+  </script>
+</head>
+<body>
+    <button onclick="handleClick();">Enable Notification</button>
+    <p id="uuidDisplay"></p>
+    <script src="script.js"></script>
+</body>
+</html>
